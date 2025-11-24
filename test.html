@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>鼓励小语录</title>
+  <title>欢迎最可爱的公主</title>
   <style>
     body {
       margin: 0;
@@ -11,10 +11,60 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #fff5f7;
+      background: linear-gradient(#ffe6f0, #ffd9ec);
       font-family: "Arial", sans-serif;
       overflow: hidden;
-    }#card {
+    }/* 开场欢迎画面 */
+#welcome {
+  position: absolute;
+  text-align: center;
+  z-index: 5;
+  animation: fadeIn 1.5s ease;
+}
+
+#welcome h1 {
+  font-size: 2.2rem;
+  color: #ff5f9e;
+  margin-bottom: 20px;
+}
+
+#welcome p {
+  font-size: 1.2rem;
+  color: #444;
+}
+
+/* 云朵 */
+.cloud {
+  position: absolute;
+  width: 120px;
+  height: 70px;
+  background: white;
+  border-radius: 40px;
+  filter: blur(1px);
+  opacity: 0.8;
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 主内容卡片 */
+#mainPage {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+}
+
+#card {
   width: 85%;
   max-width: 420px;
   padding: 30px;
@@ -25,20 +75,19 @@
   font-size: 1.4rem;
   line-height: 1.6;
   position: relative;
-  z-index: 2;
+  margin-bottom: 20px;
 }
 
 #nextBtn {
-  margin-top: 25px;
   padding: 12px 25px;
   background: #ff85a2;
   color: white;
   border: none;
   border-radius: 12px;
   font-size: 1.1rem;
-  cursor: pointer;
 }
 
+/* 花瓣 */
 .petal {
   position: fixed;
   pointer-events: none;
@@ -54,9 +103,16 @@
 
   </style>
 </head>
-<body>
-  <div id="card">点击下一页开始鼓励她 💗</div>
-  <button id="nextBtn">下一页</button>  <script>
+<body>  <!-- 欢迎画面 -->  <div id="welcome">
+    <h1>欢迎最可爱的公主 💗</h1>
+    <p>请点击屏幕开始</p>
+  </div>  <!-- 云朵 -->  <div class="cloud" style="top:20%; left:10%; animation-delay:0s;"></div>
+  <div class="cloud" style="top:30%; right:10%; animation-delay:1s;"></div>
+  <div class="cloud" style="bottom:20%; left:25%; animation-delay:0.5s;"></div>
+  <div class="cloud" style="bottom:25%; right:25%; animation-delay:1.5s;"></div>  <!-- 主内容 -->  <div id="mainPage">
+    <div id="card">点一下以获得一句鼓励 💗</div>
+    <button id="nextBtn">下一句</button>
+  </div>  <script>
     const quotes = [
       "你已经做得够好，不用再对自己那么严格。",
       "我一直都看到你的努力，不要小看自己。",
@@ -67,9 +123,14 @@
       "你从来不需要假装坚强，我会陪你。"
     ];
 
-    const flowers = ["🌸", "🌻", "🌹"];  // 樱花、向日葵、玫瑰
-
+    const flowers = ["🌸", "🌻", "🌹"];  
     let index = 0;
+
+    // 点击欢迎画面 → 进入主页面
+    document.body.addEventListener("click", () => {
+      document.getElementById("welcome").style.display = "none";
+      document.getElementById("mainPage").style.display = "flex";
+    }, { once: true });
 
     document.getElementById("nextBtn").addEventListener("click", () => {
       document.getElementById("card").textContent = quotes[index];
