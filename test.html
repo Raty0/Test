@@ -1,58 +1,30 @@
-<!DOCTYPE html><html lang="zh-CN">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>给女朋友的小语录</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>  <!-- 欢迎画面 -->  <div id="welcome">
-    <h1>欢迎最可爱的公主 💗</h1>
-    <p>请点击屏幕开始</p>
-  </div>  <!-- 云朵 -->  <div class="cloud" style="top:20%; left:10%; animation-delay:0s;"></div>
-  <div class="cloud" style="top:30%; right:10%; animation-delay:1s;"></div>
-  <div class="cloud" style="bottom:20%; left:25%; animation-delay:0.5s;"></div>
-  <div class="cloud" style="bottom:25%; right:25%; animation-delay:1.5s;"></div>  <!-- 主内容 -->  <div id="mainPage">
-    <div id="card">点一下以获得一句鼓励 💗</div>
-    <button id="nextBtn">下一句</button>
-  </div>  <script>
-    const quotes = [
-      "你已经做得够好，不用再对自己那么严格。",
-      "我一直都看到你的努力，不要小看自己。",
-      "累的话就休息一下，我永远站在你那边。",
-      "你值得被爱，也值得被温柔对待。",
-      "再小的进步也是进步，我为你骄傲。",
-      "别急，你正在慢慢变得更好。",
-      "你从来不需要假装坚强，我会陪你。"
-    ];
+<body>
+    <!-- 欢迎画面 -->
+    <div id="welcome">
+        <h1>欢迎最可爱的公主 💗</h1>
+        <p>请点击屏幕开始</p>
+    </div>
 
-    const flowers = ["🌸", "🌻", "🌹"];  
-    let index = 0;
+    <!-- 云朵 -->
+    <div class="cloud" style="top:20%; left:10%; animation-delay:0s;"></div>
+    <div class="cloud" style="top:30%; right:10%; animation-delay:1s;"></div>
+    <div class="cloud" style="bottom:20%; left:25%; animation-delay:0.5s;"></div>
+    <div class="cloud" style="bottom:25%; right:25%; animation-delay:1.5s;"></div>
 
-    // 点击欢迎画面 → 进入主页面
-    document.body.addEventListener("click", () => {
-      document.getElementById("welcome").style.display = "none";
-      document.getElementById("mainPage").style.display = "flex";
-    }, { once: true });
+    <!-- 主内容 -->
+    <div id="mainPage">
+        <div id="card">点一下以获得一句鼓励 💗</div>
+        <button id="nextBtn">下一句</button>
+    </div>
 
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      document.getElementById("card").textContent = quotes[index];
-      index = (index + 1) % quotes.length;
-      spawnPetals();
-    });
-
-    function spawnPetals() {
-      for (let i = 0; i < 18; i++) {
-        const petal = document.createElement("div");
-        petal.className = "petal";
-        petal.textContent = flowers[Math.floor(Math.random() * flowers.length)];
-        petal.style.left = Math.random() * 100 + "vw";
-        petal.style.fontSize = (20 + Math.random() * 20) + "px";
-        petal.style.animationDuration = (3 + Math.random() * 3) + "s";
-        document.body.appendChild(petal);
-        setTimeout(() => petal.remove(), 6000);
-      }
-    }
-  </script><script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
