@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>鼓励小语录</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff5f7;
+      font-family: "Arial", sans-serif;
+      overflow: hidden;
+    }#card {
+  width: 85%;
+  max-width: 420px;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  text-align: center;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  position: relative;
+  z-index: 2;
+}
+
+#nextBtn {
+  margin-top: 25px;
+  padding: 12px 25px;
+  background: #ff85a2;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.petal {
+  position: fixed;
+  pointer-events: none;
+  animation: fall linear forwards;
+  opacity: 0.9;
+  z-index: 1;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+  </style>
+</head>
+<body>
+  <div id="card">点击下一页开始鼓励她 💗</div>
+  <button id="nextBtn">下一页</button>  <script>
+    const quotes = [
+      "你已经做得够好，不用再对自己那么严格。",
+      "我一直都看到你的努力，不要小看自己。",
+      "累的话就休息一下，我永远站在你那边。",
+      "你值得被爱，也值得被温柔对待。",
+      "再小的进步也是进步，我为你骄傲。",
+      "别急，你正在慢慢变得更好。",
+      "你从来不需要假装坚强，我会陪你。"
+    ];
+
+    const flowers = ["🌸", "🌻", "🌹"];  // 樱花、向日葵、玫瑰
+
+    let index = 0;
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      document.getElementById("card").textContent = quotes[index];
+      index = (index + 1) % quotes.length;
+      spawnPetals();
+    });
+
+    function spawnPetals() {
+      for (let i = 0; i < 18; i++) {
+        const petal = document.createElement("div");
+        petal.className = "petal";
+        petal.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+        petal.style.left = Math.random() * 100 + "vw";
+        petal.style.fontSize = (20 + Math.random() * 20) + "px";
+        petal.style.animationDuration = (3 + Math.random() * 3) + "s";
+        document.body.appendChild(petal);
+        setTimeout(() => petal.remove(), 6000);
+      }
+    }
+  </script></body>
+</html>
