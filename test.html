@@ -1,107 +1,9 @@
 <!DOCTYPE html><html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>欢迎最可爱的公主</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(#ffe6f0, #ffd9ec);
-      font-family: "Arial", sans-serif;
-      overflow: hidden;
-    }/* 开场欢迎画面 */
-#welcome {
-  position: absolute;
-  text-align: center;
-  z-index: 5;
-  animation: fadeIn 1.5s ease;
-}
-
-#welcome h1 {
-  font-size: 2.2rem;
-  color: #ff5f9e;
-  margin-bottom: 20px;
-}
-
-#welcome p {
-  font-size: 1.2rem;
-  color: #444;
-}
-
-/* 云朵 */
-.cloud {
-  position: absolute;
-  width: 120px;
-  height: 70px;
-  background: white;
-  border-radius: 40px;
-  filter: blur(1px);
-  opacity: 0.8;
-  animation: float 5s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-  100% { transform: translateY(0); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* 主内容卡片 */
-#mainPage {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  z-index: 3;
-}
-
-#card {
-  width: 85%;
-  max-width: 420px;
-  padding: 30px;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-  text-align: center;
-  font-size: 1.4rem;
-  line-height: 1.6;
-  position: relative;
-  margin-bottom: 20px;
-}
-
-#nextBtn {
-  padding: 12px 25px;
-  background: #ff85a2;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 1.1rem;
-}
-
-/* 花瓣 */
-.petal {
-  position: fixed;
-  pointer-events: none;
-  animation: fall linear forwards;
-  opacity: 0.9;
-  z-index: 1;
-}
-
-@keyframes fall {
-  0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-}
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给女朋友的小语录</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>  <!-- 欢迎画面 -->  <div id="welcome">
     <h1>欢迎最可爱的公主 💗</h1>
@@ -150,5 +52,7 @@
         setTimeout(() => petal.remove(), 6000);
       }
     }
-  </script></body>
+  </script><script src="script.js"></script>
+
+</body>
 </html>
