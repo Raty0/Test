@@ -1,29 +1,83 @@
-/* 整体页面的基础风格 */
+/* ------------------ 全局样式 ------------------ */
 body {
     margin: 0;
     padding: 0;
     background: linear-gradient(135deg, #ffe4ec, #fff7f7);
     font-family: "Arial", sans-serif;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    position: relative;
+    overflow: hidden;
 }
 
-/* 文字框 */
-#quote {
+/* ------------------ 欢迎页面 ------------------ */
+#welcome {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 10;
+}
+
+#welcome h1 {
+    font-size: 2.2rem;
+    color: #ff5f9e;
+    margin-bottom: 15px;
+}
+
+#welcome p {
+    font-size: 1.2rem;
+    color: #444;
+}
+
+/* ------------------ 云朵样式 ------------------ */
+.cloud {
+    position: absolute;
+    width: 120px;
+    height: 70px;
+    background: white;
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: 0.8;
+    animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+/* ------------------ 主内容 ------------------ */
+#mainPage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; /* 初始隐藏，点击欢迎页显示 */
+    flex-direction: column;
+    align-items: center;
+    z-index: 5;
+}
+
+#card {
     font-size: 1.8rem;
     text-align: center;
     color: #444;
-    padding: 20px;
+    padding: 25px;
     max-width: 90%;
-    animation: fadeIn 0.8s ease;  /* 每次出现都柔和淡入 */
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    animation: fadeIn 0.8s ease;
 }
 
-/* 按钮样式 */
-button {
-    margin-top: 30px;
+/* ------------------ 按钮样式 ------------------ */
+#nextBtn {
+    margin-top: 20px;
     padding: 12px 30px;
     font-size: 1.2rem;
     border: none;
@@ -32,14 +86,30 @@ button {
     color: white;
     box-shadow: 0 4px 10px rgba(255, 120, 150, 0.4);
     transition: transform 0.2s ease, box-shadow 0.2s;
+    cursor: pointer;
 }
 
-button:active {
+#nextBtn:active {
     transform: scale(0.95);
     box-shadow: 0 2px 6px rgba(255, 120, 150, 0.3);
 }
 
-/* 淡入动画 */
+/* ------------------ 花瓣动画 ------------------ */
+.petal {
+    position: fixed;
+    pointer-events: none;
+    animation: fall linear forwards;
+    opacity: 0.9;
+    z-index: 1;
+    font-size: 24px;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* ------------------ 文字淡入 ------------------ */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
