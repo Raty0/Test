@@ -14,22 +14,25 @@ const quotes = [
 ];
 
 let qIndex = 0;
-let clickable = true; // 控制 2~4 秒冷却
+let clickable = true;   // 点击冷却开关
 
-/* --- 点击欢迎页面进入主页面 --- */
+
+/* ----------------------------
+   点击欢迎界面 → 进入主界面
+----------------------------- */
 welcome.addEventListener("click", () => {
-  stopClouds(); // 停止云朵
+  stopClouds();
 
-  // 欢迎界面电影感放大
-  welcome.style.transition = "transform 1.5s ease, opacity 1.5s";
+  welcome.style.transition = "transform 1.5s ease, opacity 1.5s ease";
   welcome.style.transform = "scale(1.15)";
-  welcome.style.opacity = 0;
+  welcome.style.opacity = "0";
 
   setTimeout(() => {
     welcome.style.display = "none";
     enterMain();
   }, 1500);
 });
+
 
 /* 停止云朵飘动 */
 function stopClouds() {
@@ -38,16 +41,23 @@ function stopClouds() {
   });
 }
 
-/* 进入主页面动画 */
+
+/* 主界面启动 */
 function enterMain() {
   mainPage.style.display = "flex";
   exitBtn.style.display = "block";
 
+  // 初始语录出现
   showQuote();
+
+  // 启动爱心生成
   startHearts();
 }
 
-/* --- 飘动爱心持续生成 --- */
+
+/* ----------------------------
+   不断生成飘动爱心
+----------------------------- */
 function startHearts() {
   setInterval(() => {
     const h = document.createElement("div");
@@ -60,64 +70,80 @@ function startHearts() {
 
     document.body.appendChild(h);
 
+    // 6 秒后自动移除
     setTimeout(() => h.remove(), 6000);
   }, 600);
 }
 
-/* --- 显示语录 --- */
+
+/* ----------------------------
+   显示语录
+----------------------------- */
 function showQuote() {
   quoteBox.textContent = quotes[qIndex];
-  quoteBox.style.transition = "opacity 1s ease, transform 1s";
-  quoteBox.style.opacity = 1;
+  quoteBox.style.opacity = "1";
   quoteBox.style.transform = "translateY(0)";
+
   qIndex = (qIndex + 1) % quotes.length;
 }
 
-/* --- 点击主页面切换下一个语录 --- */
-mainPage.addEventListener("click", () => {
-  if (!clickable) return; // 冷却中不能点击
 
+/* ----------------------------
+   点击主界面 → 切换语录
+----------------------------- */
+mainPage.addEventListener("click", () => {
+  // 冷却时间防止乱点
+  if (!clickable) return;
   clickable = false;
 
+  // 当前语录淡出
+  quoteBox.style.opacity = "0";
+  quoteBox.style.transform = "translateY(20px)";
+
+  // 心形缩进动画
   implodeHearts();
-  quoteBox.style.opacity = 0;
 
-  const delay = 1000; // 收缩时间
-
+  // 等缩进去后爆开
   setTimeout(() => {
     explodeHearts();
 
+    // 爆开结束后切换语录
     setTimeout(() => {
       showQuote();
-      clickable = true; // 可以点击下一次
+      clickable = true;
     }, 800);
 
-  }, delay);
+  }, 1000);
 });
 
-/* --- 爱心缩进 --- */
+
+/* 心形缩进 */
 function implodeHearts() {
   document.querySelectorAll(".heart").forEach(h => {
     h.style.animation = "implode 1s forwards";
   });
 }
 
-/* --- 爱心爆开 --- */
+/* 心形爆开 */
 function explodeHearts() {
   document.querySelectorAll(".heart").forEach(h => {
     h.style.animation = "explode 0.8s forwards";
   });
 }
 
-/* --- 退出 --- */
+
+/* ----------------------------
+   退出 → 回到欢迎界面
+----------------------------- */
 exitBtn.addEventListener("click", () => {
   mainPage.style.display = "none";
   exitBtn.style.display = "none";
 
   qIndex = 0;
-  quoteBox.style.opacity = 0;
+  quoteBox.style.opacity = "0";
 
+  // 重置欢迎界面
   welcome.style.display = "flex";
-  welcome.style.opacity = 1;
+  welcome.style.opacity = "1";
   welcome.style.transform = "scale(1)";
 });
