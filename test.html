@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>给女朋友的小语录</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>给最可爱的公主的小语录</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- 欢迎页面 -->
-    <div id="welcome">
-        <h1>欢迎最可爱的公主 💗</h1>
-        <p>请点击屏幕开始</p>
+  <!-- 欢迎界面 -->
+  <div id="welcome">
+    <h1>欢迎最可爱的公主 💗</h1>
+    <p>请点击屏幕开始</p>
+    <div class="cloud" style="top: 20%; left: 5%; animation-delay: 0s;"></div>
+    <div class="cloud" style="top: 30%; right: 10%; animation-delay: 1s;"></div>
+    <div class="cloud" style="bottom: 20%; left: 20%; animation-delay: 0.5s;"></div>
+    <div class="cloud" style="bottom: 25%; right: 25%; animation-delay: 1.5s;"></div>
+  </div>
+
+  <!-- 主界面 -->
+  <div id="mainPage">
+    <div id="card">点一下以获得一句鼓励 💗</div>
+    <div class="btn-group">
+      <button id="nextBtn">下一句</button>
+      <button id="exitBtn">退出</button>
     </div>
+  </div>
 
-    <!-- 云朵 -->
-    <div class="cloud" style="top:20%; left:10%; animation-delay:0s;"></div>
-    <div class="cloud" style="top:30%; right:10%; animation-delay:1s;"></div>
-    <div class="cloud" style="bottom:20%; left:25%; animation-delay:0.5s;"></div>
-    <div class="cloud" style="bottom:25%; right:25%; animation-delay:1.5s;"></div>
-
-    <!-- 主内容 -->
-    <div id="mainPage">
-        <div id="card">点一下以获得一句鼓励 💗</div>
-        <button id="nextBtn">下一句</button>
-    </div>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
