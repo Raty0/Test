@@ -1,3 +1,8 @@
+const welcome = document.getElementById("welcome");
+const mainPage = document.getElementById("mainPage");
+const quoteBox = document.getElementById("quoteBox");
+const exitBtn = document.getElementById("exitBtn");
+
 const quotes = [
   "你已经做得够好，不用再对自己那么严格。",
   "我一直都看到你的努力，不要小看自己。",
@@ -8,48 +13,111 @@ const quotes = [
   "你从来不需要假装坚强，我会陪你。"
 ];
 
-const flowers = ["🌸", "🌻", "🌹"];
-let index = 0;
+let qIndex = 0;
+let clickable = true; // 控制 2~4 秒冷却
 
-const welcome = document.getElementById("welcome");
-const mainPage = document.getElementById("mainPage");
-const card = document.getElementById("card");
-const nextBtn = document.getElementById("nextBtn");
-const exitBtn = document.getElementById("exitBtn");
+/* --- 点击欢迎页面进入主页面 --- */
+welcome.addEventListener("click", () => {
+  stopClouds(); // 停止云朵
 
-// 进入主页面
-function enterMainPage() {
-  welcome.style.display = "none";
-  mainPage.style.display = "flex";
-}
-welcome.addEventListener("click", enterMainPage, { once: true });
-welcome.addEventListener("touchstart", enterMainPage, { once: true });
+  // 欢迎界面电影感放大
+  welcome.style.transition = "transform 1.5s ease, opacity 1.5s";
+  welcome.style.transform = "scale(1.15)";
+  welcome.style.opacity = 0;
 
-// 下一句按钮
-nextBtn.addEventListener("click", () => {
-  card.textContent = quotes[index];
-  index = (index + 1) % quotes.length;
-  spawnPetals();
+  setTimeout(() => {
+    welcome.style.display = "none";
+    enterMain();
+  }, 1500);
 });
 
-// 退出按钮
+/* 停止云朵飘动 */
+function stopClouds() {
+  document.querySelectorAll(".cloud").forEach(c => {
+    c.style.animationPlayState = "paused";
+  });
+}
+
+/* 进入主页面动画 */
+function enterMain() {
+  mainPage.style.display = "flex";
+  exitBtn.style.display = "block";
+
+  showQuote();
+  startHearts();
+}
+
+/* --- 飘动爱心持续生成 --- */
+function startHearts() {
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.textContent = "💗";
+
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.bottom = "-10vh";
+    h.style.fontSize = (18 + Math.random() * 16) + "px";
+
+    document.body.appendChild(h);
+
+    setTimeout(() => h.remove(), 6000);
+  }, 600);
+}
+
+/* --- 显示语录 --- */
+function showQuote() {
+  quoteBox.textContent = quotes[qIndex];
+  quoteBox.style.transition = "opacity 1s ease, transform 1s";
+  quoteBox.style.opacity = 1;
+  quoteBox.style.transform = "translateY(0)";
+  qIndex = (qIndex + 1) % quotes.length;
+}
+
+/* --- 点击主页面切换下一个语录 --- */
+mainPage.addEventListener("click", () => {
+  if (!clickable) return; // 冷却中不能点击
+
+  clickable = false;
+
+  implodeHearts();
+  quoteBox.style.opacity = 0;
+
+  const delay = 1000; // 收缩时间
+
+  setTimeout(() => {
+    explodeHearts();
+
+    setTimeout(() => {
+      showQuote();
+      clickable = true; // 可以点击下一次
+    }, 800);
+
+  }, delay);
+});
+
+/* --- 爱心缩进 --- */
+function implodeHearts() {
+  document.querySelectorAll(".heart").forEach(h => {
+    h.style.animation = "implode 1s forwards";
+  });
+}
+
+/* --- 爱心爆开 --- */
+function explodeHearts() {
+  document.querySelectorAll(".heart").forEach(h => {
+    h.style.animation = "explode 0.8s forwards";
+  });
+}
+
+/* --- 退出 --- */
 exitBtn.addEventListener("click", () => {
   mainPage.style.display = "none";
-  welcome.style.display = "block";
-  card.textContent = "点一下以获得一句鼓励 💗";
-  index = 0;
-});
+  exitBtn.style.display = "none";
 
-// 花瓣特效
-function spawnPetals() {
-  for (let i = 0; i < 18; i++) {
-    const petal = document.createElement("div");
-    petal.className = "petal";
-    petal.textContent = flowers[Math.floor(Math.random() * flowers.length)];
-    petal.style.left = Math.random() * 100 + "vw";
-    petal.style.fontSize = (20 + Math.random() * 20) + "px";
-    petal.style.animationDuration = (3 + Math.random() * 3) + "s";
-    document.body.appendChild(petal);
-    setTimeout(() => petal.remove(), 6000);
-  }
-}
+  qIndex = 0;
+  quoteBox.style.opacity = 0;
+
+  welcome.style.display = "flex";
+  welcome.style.opacity = 1;
+  welcome.style.transform = "scale(1)";
+});
