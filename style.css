@@ -17,9 +17,8 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  opacity: 0;
 
-  /* 初次进入时 从上往下渐入 */
+  opacity: 0;
   animation: welcomeFade 1.6s ease forwards;
 }
 
@@ -28,8 +27,6 @@ body {
   color: #ff7b9c;
   opacity: 0;
   transform: translateY(-60px);
-
-  /* 标题跌落动画 */
   animation: titleDrop 1.8s ease forwards 0.3s;
 }
 
@@ -38,14 +35,12 @@ body {
   font-size: 1.3rem;
   color: #555;
   opacity: 0;
-
-  /* 文字慢慢显现 */
   animation: textAppear 1.8s ease forwards 1.2s;
 }
 
 @keyframes welcomeFade {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 @keyframes titleDrop {
@@ -58,7 +53,7 @@ body {
   to { opacity: 1; }
 }
 
-/* 云朵飘动 */
+/* --- 云朵飘动 --- */
 .cloud {
   position: absolute;
   width: 120px;
@@ -72,7 +67,7 @@ body {
 }
 
 @keyframes cloudMove {
-  0% { transform: translateX(-30vw); }
+  0% { transform: translateX(-40vw); }
   100% { transform: translateX(140vw); }
 }
 
@@ -81,11 +76,11 @@ body {
   position: absolute;
   inset: 0;
   display: none;
+
   justify-content: center;
   align-items: center;
   flex-direction: column;
 
-  /* 紫到粉的渐变 + 模糊背景 */
   backdrop-filter: blur(6px);
   background: linear-gradient(135deg, rgba(120,0,200,0.35), rgba(255,120,180,0.35));
 }
@@ -96,8 +91,10 @@ body {
   font-size: 1.5rem;
   text-align: center;
   color: white;
+
   opacity: 0;
   transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
 }
 
 /* --- 飘动爱心 --- */
@@ -105,8 +102,8 @@ body {
   position: absolute;
   pointer-events: none;
   font-size: 22px;
-  animation: heartFloat 6s linear infinite;
   opacity: 0.9;
+  animation: heartFloat 6s linear infinite;
 }
 
 @keyframes heartFloat {
