@@ -1,132 +1,145 @@
-/* 通用设置 */
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
-  margin: 0;
-  padding: 0;
   height: 100vh;
-  font-family: "Comic Sans MS", "Arial", sans-serif;
+  font-family: "Comic Sans MS", Arial, sans-serif;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #ffe4ec, #fff7f7);
-  transition: background 0.5s ease;
+  background: #ffe4ec;
 }
 
-/* 欢迎界面 */
+/* --- 欢迎界面 --- */
 #welcome {
-  text-align: center;
-  z-index: 3;
-}
-
-#welcome h1 {
-  color: #ff7b9c;
-  font-size: 2.2rem;
-  margin-bottom: 0.5em;
-  animation: float 3s ease-in-out infinite;
-}
-
-#welcome p {
-  color: #555;
-  font-size: 1.2rem;
-  animation: blink 2s infinite;
-}
-
-/* 云朵动画 */
-.cloud {
   position: absolute;
-  width: 100px;
-  height: 60px;
-  background: white;
-  border-radius: 50px;
-  box-shadow: 30px 10px 0 10px white;
-  opacity: 0.8;
-  animation: floatCloud 6s ease-in-out infinite;
-}
-
-@keyframes floatCloud {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(15px); }
-}
-
-/* 主界面 */
-#mainPage {
-  display: none;
+  inset: 0;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  z-index: 2;
+  opacity: 0;
+
+  /* 初次进入时 从上往下渐入 */
+  animation: welcomeFade 1.6s ease forwards;
 }
 
-#card {
-  width: 85%;
-  max-width: 420px;
-  padding: 30px;
+#welcome h1 {
+  font-size: 2.4rem;
+  color: #ff7b9c;
+  opacity: 0;
+  transform: translateY(-60px);
+
+  /* 标题跌落动画 */
+  animation: titleDrop 1.8s ease forwards 0.3s;
+}
+
+#welcome p {
+  margin-top: 15px;
+  font-size: 1.3rem;
+  color: #555;
+  opacity: 0;
+
+  /* 文字慢慢显现 */
+  animation: textAppear 1.8s ease forwards 1.2s;
+}
+
+@keyframes welcomeFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes titleDrop {
+  0% { opacity: 0; transform: translateY(-60px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes textAppear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 云朵飘动 */
+.cloud {
+  position: absolute;
+  width: 120px;
+  height: 70px;
   background: white;
-  border-radius: 20px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-  font-size: 1.4rem;
-  line-height: 1.6;
-  color: #444;
-  min-height: 100px;
-  animation: fadeIn 0.6s ease;
+  border-radius: 50px;
+  box-shadow: 30px 10px 0 10px white;
+  opacity: 0.85;
+
+  animation: cloudMove 28s linear infinite;
 }
 
-/* 按钮区 */
-.btn-group {
-  display: flex;
-  gap: 15px;
-  margin-top: 25px;
+@keyframes cloudMove {
+  0% { transform: translateX(-30vw); }
+  100% { transform: translateX(140vw); }
 }
 
-button {
-  padding: 12px 25px;
-  border: none;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  cursor: pointer;
+/* --- 主页面 --- */
+#mainPage {
+  position: absolute;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  /* 紫到粉的渐变 + 模糊背景 */
+  backdrop-filter: blur(6px);
+  background: linear-gradient(135deg, rgba(120,0,200,0.35), rgba(255,120,180,0.35));
+}
+
+#quoteBox {
+  max-width: 420px;
+  padding: 28px;
+  font-size: 1.5rem;
+  text-align: center;
   color: white;
-  background: #ff85a2;
-  box-shadow: 0 4px 10px rgba(255, 120, 150, 0.3);
-  transition: transform 0.2s, box-shadow 0.2s;
+  opacity: 0;
+  transform: translateY(20px);
 }
 
-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(255, 120, 150, 0.4);
-}
-
-button:active {
-  transform: scale(0.95);
-  box-shadow: 0 2px 6px rgba(255, 120, 150, 0.2);
-}
-
-/* 花瓣样式 */
-.petal {
-  position: fixed;
+/* --- 飘动爱心 --- */
+.heart {
+  position: absolute;
   pointer-events: none;
-  animation: fall linear forwards;
+  font-size: 22px;
+  animation: heartFloat 6s linear infinite;
   opacity: 0.9;
-  z-index: 5;
 }
 
-@keyframes fall {
-  0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+@keyframes heartFloat {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-90vh) scale(1.4); opacity: 0; }
 }
 
-/* 动画 */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+/* 爱心缩进效果 */
+@keyframes implode {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0); opacity: 0; }
 }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+/* 爱心爆开效果 */
+@keyframes explode {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1.3); opacity: 1; }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+/* 退出按钮 */
+#exitBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+
+  background: rgba(255,100,150,0.85);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+
+  display: none;
 }
